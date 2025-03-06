@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>io.github.filipve1994</groupId>
     <artifactId>myfirstlibrary</artifactId>
 <!--    <version>1.0-SNAPSHOT</version>-->
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.1</version>
 <!--    <version>0.0.1</version>-->
 
     <!-- "Some" metadata required by Maven Central. They help in indexing and in various tooling like IDEs.
@@ -43,7 +41,7 @@
             Some "newbies" might be better off with https, I always go with ssh 😎
         -->
         <developerConnection>scm:git:ssh://git@github.com:/filipve1994/myfirstlibrary.git</developerConnection>
-        <tag>HEAD</tag>
+        <tag>myfirstlibrary-0.0.1</tag>
     </scm>
 
     <issueManagement>
