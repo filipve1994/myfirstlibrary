@@ -5,7 +5,7 @@
     <groupId>io.github.filipve1994</groupId>
     <artifactId>myfirstlibrary</artifactId>
 <!--    <version>1.0-SNAPSHOT</version>-->
-    <version>0.0.1</version>
+    <version>0.0.2-SNAPSHOT</version>
 <!--    <version>0.0.1</version>-->
 
     <!-- "Some" metadata required by Maven Central. They help in indexing and in various tooling like IDEs.
@@ -41,7 +41,7 @@
             Some "newbies" might be better off with https, I always go with ssh 😎
         -->
         <developerConnection>scm:git:ssh://git@github.com:/filipve1994/myfirstlibrary.git</developerConnection>
-        <tag>myfirstlibrary-0.0.1</tag>
+        <tag>HEAD</tag>
     </scm>
 
     <issueManagement>
