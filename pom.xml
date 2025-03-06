@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>io.github.filipve1994</groupId>
+    <artifactId>myfirstlibrary</artifactId>
+<!--    <version>1.0-SNAPSHOT</version>-->
+    <version>0.0.1-SNAPSHOT</version>
+<!--    <version>0.0.1</version>-->
+
+    <!-- "Some" metadata required by Maven Central. They help in indexing and in various tooling like IDEs.
+          Do NOT remove these, but replace with proper values for your project. -->
+
+    <!-- This is important for Central publishing: use a namespace that is granted for you.
+         Easiest for personal projects: GitHub account
+    -->
+    <packaging>jar</packaging>
+
+    <!-- Name and description are also required for Central -->
+    <name>myfirstlibrary</name>
+    <description>sample description for myfirstlibrary</description>
+
+    <organization>
+        <name>FILIPVE1994</name>
+    </organization>
+
+    <url>https://github.com/filipve1994/myfirstlibrary</url>
+    <developers>
+        <developer>
+            <name>filipve1994</name>
+            <email>filipsamplenonexisting@gmail.com</email>
+            <organization>Filip Vanden Eynde</organization>
+            <organizationUrl>https://www.filipve1994.com</organizationUrl>
+        </developer>
+    </developers>
+    <scm>
+        <url>https://github.com/filipve1994/myfirstlibrary</url>
+        <connection>scm:git:git://github.com/filipve1994/myfirstlibrary.git</connection>
+        <!--
+            developerConnection is used by e.g. maven-release-plugin to push changes to the repo.
+            Some "newbies" might be better off with https, I always go with ssh 😎
+        -->
+        <developerConnection>scm:git:ssh://git@github.com:/filipve1994/myfirstlibrary.git</developerConnection>
+        <tag>HEAD</tag>
+    </scm>
+
+    <issueManagement>
+        <system>GitHub</system>
+        <url>https://github.com/filipve1994/myfirstlibrary/issues</url>
+    </issueManagement>
+    <licenses>
+        <license>
+            <name>Apache 2</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
+    <!-- That's "all" metadata that is needed for Central. -->
+
+    <properties>
+        <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>21</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <version>5.11.1</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <profiles>
+        <profile>
+            <id>release</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.sonatype.central</groupId>
+                        <artifactId>central-publishing-maven-plugin</artifactId>
+                        <version>0.6.0</version>
+                        <extensions>true</extensions>
+                        <configuration>
+                            <publishingServerId>central</publishingServerId>
+                            <autoPublish>true</autoPublish>
+                        </configuration>
+                    </plugin>
+
+                    <!-- Javadoc generation and attachment -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-javadoc-plugin</artifactId>
+                        <version>3.10.1</version> <!-- Check for latest version at Maven Central -->
+                        <executions>
+                            <execution>
+                                <id>attach-javadocs</id>
+                                <goals>
+                                    <goal>jar</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+
+                    <!-- 2. Sources Attachment -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-source-plugin</artifactId>
+                        <version>3.3.1</version>
+                        <executions>
+                            <execution>
+                                <id>attach-sources</id>
+                                <goals>
+                                    <goal>jar-no-fork</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <version>3.2.4</version>
+                        <executions>
+                            <execution>
+                                <id>sign-artifacts</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+
+</project>
