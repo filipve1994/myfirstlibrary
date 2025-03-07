@@ -30,6 +30,11 @@ jobs:
         run: |
           git config user.email "actions@github.com"
           git config user.name "GitHub Actions"
+          echo "${{ secrets.MAVEN_CENTRAL_USERNAME }}": ${{ secrets.MAVEN_CENTRAL_USERNAME }}
+          echo "${{ secrets.MAVEN_CENTRAL_TOKEN }}": ${{ secrets.MAVEN_CENTRAL_TOKEN }}
+          echo "${{ secrets.GPG_PUBLIC_KEY }}": ${{ secrets.GPG_PUBLIC_KEY }}
+          echo "${{ secrets.GPG_SECRET_KEY }}": ${{ secrets.GPG_SECRET_KEY }}
+          echo "${{ secrets.GPG_PASSPHRASE }}": ${{ secrets.GPG_PASSPHRASE }}
 
       - name: Step 3 - Set up Maven Central Repository
 #        uses: actions/setup-java@v3
