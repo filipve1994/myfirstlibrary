@@ -11,6 +11,9 @@ on:
       - master-tryoutworkflowseparately-v1
   workflow_dispatch:
 
+permissions:
+  contents: write    
+
 jobs:
   publish:
     runs-on: ubuntu-latest

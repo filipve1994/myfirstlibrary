@@ -11,8 +11,8 @@
 
         <server>
             <id>github</id>
-            <username>${env.ACTIONS_GITHUB_ACTOR_USERNAME}</username>
-            <password>${env.ACTIONS_GITHUB_TOKEN}</password>
+            <username>${env.GITHUB_ACTOR}</username>
+            <password>${env.GITHUB_TOKEN}</password>
         </server>
     </servers>
 
