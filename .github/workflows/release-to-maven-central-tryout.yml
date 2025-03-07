@@ -67,10 +67,11 @@ jobs:
 
       # Step 6: Use qcastel/github-actions-maven-release to deploy to Maven Central
       - name: Step 6 - Deploy to Maven Central
-        uses: qcastel/github-actions-maven-release@latest
+        uses: qcastel/github-actions-maven-release@v1.12.43
         with:
           maven_version: '3.x'
           maven_goals: 'clean deploy'
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
           #user_name: ${{ secrets.SONATYPE_USERNAME }}
           user_name: ${{ secrets.MAVEN_CENTRAL_USERNAME }}
           #user_password: ${{ secrets.SONATYPE_PASSWORD }}
@@ -82,6 +83,7 @@ jobs:
           release_version: ${{ github.ref }}
           #branch_name: 'master'
           branch_name: 'master-tryoutworkflowseparately-v1'
+          version-patch: true
 
       # Step 7: Commit the new snapshot version back to master
       - name: Commit new snapshot version to master
