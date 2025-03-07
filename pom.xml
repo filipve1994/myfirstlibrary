@@ -33,14 +33,17 @@
             <organizationUrl>https://www.filipve1994.com</organizationUrl>
         </developer>
     </developers>
+
     <scm>
-        <url>https://github.com/filipve1994/myfirstlibrary</url>
-        <connection>scm:git:git://github.com/filipve1994/myfirstlibrary.git</connection>
+        <url>git@github.com:filipve1994/myfirstlibrary.git</url>
+        <connection>scm:git:${project.scm.url}</connection>
+        <!-- <connection>scm:git:git://github.com/filipve1994/myfirstlibrary.git</connection>-->
         <!--
             developerConnection is used by e.g. maven-release-plugin to push changes to the repo.
             Some "newbies" might be better off with https, I always go with ssh 😎
         -->
-        <developerConnection>scm:git:ssh://git@github.com:/filipve1994/myfirstlibrary.git</developerConnection>
+        <!--<developerConnection>scm:git:ssh://git@github.com:/filipve1994/myfirstlibrary.git</developerConnection>-->
+        <developerConnection>scm:git:${project.scm.url}</developerConnection>
         <tag>HEAD</tag>
     </scm>
 
@@ -115,12 +118,16 @@
                             <artifactId>maven-release-plugin</artifactId>
                             <version>3.1.1</version>
                             <configuration>
-                                <autoVersionSubmodules>true</autoVersionSubmodules>
+                            
+                            <scmCommentPrefix>[ci skip]</scmCommentPrefix>
+					<tagNameFormat>@{project.version}</tagNameFormat>
+
+                                <!-- <autoVersionSubmodules>true</autoVersionSubmodules> -->
 
                                 <!-- Forward compatibility: "release-profile" will be removed from super POM.
                                      It's better to define javadocs, sources, signing, etc. in an independent "release" profile. -->
-                                <useReleaseProfile>false</useReleaseProfile>
-                                <releaseProfiles>release</releaseProfiles>
+                                <!-- <useReleaseProfile>false</useReleaseProfile>-->
+                                <!-- <releaseProfiles>release</releaseProfiles>-->
                             </configuration>
                             <!-- branch:   master-tryoutworkflowseparately-v1   -->
                         </plugin>
