@@ -50,7 +50,7 @@ jobs:
       # Step 5: Use the Maven release plugin to prepare and perform the release
       - name: Step 5 - Perform Maven Release
         run: |
-          mvn release:prepare release:perform -DpushChanges=false      
+          mvn -B release:prepare release:perform -DpushChanges=false      
         env:
           MAVEN_USERNAME: ${{ secrets.MAVEN_CENTRAL_USERNAME }}
           MAVEN_PASSWORD: ${{ secrets.MAVEN_CENTRAL_TOKEN }}
