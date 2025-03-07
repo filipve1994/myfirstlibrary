@@ -5,8 +5,8 @@
     <groupId>io.github.filipve1994</groupId>
     <artifactId>myfirstlibrary</artifactId>
 <!--    <version>1.0-SNAPSHOT</version>-->
-<!--    <version>0.0.1-SNAPSHOT</version>-->
-    <version>0.0.1</version>
+    <version>0.0.1-SNAPSHOT</version>
+    <!--<version>0.0.1</version>-->
 
     <!-- "Some" metadata required by Maven Central. They help in indexing and in various tooling like IDEs.
           Do NOT remove these, but replace with proper values for your project. -->
@@ -109,20 +109,20 @@
     <!--              If you disable autoPublish, you can make final checks on your artifacts before manually-->
     <!--              releasing them to Central, where they cannot be removed once published.-->
     <!--            &ndash;&gt;-->
-    <!--            <plugin>-->
-    <!--                &lt;!&ndash; Fixing version & activating "release" profile for those who use release plugin &ndash;&gt;-->
-    <!--                <groupId>org.apache.maven.plugins</groupId>-->
-    <!--                <artifactId>maven-release-plugin</artifactId>-->
-    <!--                <version>3.1.1</version>-->
-    <!--                <configuration>-->
-    <!--                    <autoVersionSubmodules>true</autoVersionSubmodules>-->
+                        <plugin>
+                            <!-- Fixing version & activating "release" profile for those who use release plugin -->
+                            <groupId>org.apache.maven.plugins</groupId>
+                            <artifactId>maven-release-plugin</artifactId>
+                            <version>3.1.1</version>
+                            <configuration>
+                                <autoVersionSubmodules>true</autoVersionSubmodules>
 
-    <!--                    &lt;!&ndash; Forward compatibility: "release-profile" will be removed from super POM.-->
-    <!--                         It's better to define javadocs, sources, signing, etc. in an independent "release" profile. &ndash;&gt;-->
-    <!--                    <useReleaseProfile>false</useReleaseProfile>-->
-    <!--                    <releaseProfiles>release</releaseProfiles>-->
-    <!--                </configuration>-->
-    <!--            </plugin>-->
+                                <!-- Forward compatibility: "release-profile" will be removed from super POM.
+                                     It's better to define javadocs, sources, signing, etc. in an independent "release" profile. -->
+                                <useReleaseProfile>false</useReleaseProfile>
+                                <releaseProfiles>release</releaseProfiles>
+                            </configuration>
+                        </plugin>
             </plugins>
         </build>
 
@@ -140,6 +140,7 @@
                             <publishingServerId>central</publishingServerId>
                             <autoPublish>true</autoPublish>
 <!--                            <tokenAuth>true</tokenAuth>-->
+                            <waitUntil>uploaded</waitUntil>
                         </configuration>
                     </plugin>
 
