@@ -122,6 +122,7 @@
                                 <useReleaseProfile>false</useReleaseProfile>
                                 <releaseProfiles>release</releaseProfiles>
                             </configuration>
+                            <!-- branch:   master-tryoutworkflowseparately-v1   -->
                         </plugin>
             </plugins>
         </build>

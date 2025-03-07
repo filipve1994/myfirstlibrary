@@ -1,0 +1,94 @@
+name: Release to Maven Central
+
+on:
+  push:
+    branches:
+      - master  # Trigger the workflow on push to master
+      - master-tryoutworkflowseparately-v1
+  pull_request:
+    branches:
+      - master  # Trigger the workflow on pull request to master
+      - master-tryoutworkflowseparately-v1
+  workflow_dispatch:
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Step 1 - Checkout code
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ github.ref_name }}  # Dynamically use branch name
+
+      - name: Step 2 - Import GPG Key
+        run: |
+          echo "${{ secrets.GPG_PUBLIC_KEY }}" | gpg --import
+          echo "${{ secrets.GPG_SECRET_KEY }}" | gpg --import --no-tty --batch --yes
+        env:
+          GPG_PUBLIC_KEY: ${{ secrets.GPG_PUBLIC_KEY }}
+          GPG_SECRET_KEY: ${{ secrets.GPG_SECRET_KEY }}
+      - name: Configure Git user
+        run: |
+          git config user.email "actions@github.com"
+          git config user.name "GitHub Actions"
+
+      - name: Step 3 - Set up Maven Central Repository
+#        uses: actions/setup-java@v3
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+          server-id: central
+          server-username: MAVEN_USERNAME
+          server-password: MAVEN_PASSWORD
+          gpg-private-key: ${{ secrets.GPG_SECRET_KEY }}
+          gpg-passphrase: MAVEN_GPG_PASSPHRASE
+
+      # Step 5: Use the Maven release plugin to prepare and perform the release
+      - name: Step 5 - Perform Maven Release
+        run: |
+          mvn release:prepare release:perform -DpushChanges=false      
+        env:
+          MAVEN_USERNAME: ${{ secrets.MAVEN_CENTRAL_USERNAME }}
+          MAVEN_PASSWORD: ${{ secrets.MAVEN_CENTRAL_TOKEN }}
+          MAVEN_GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
+          GITHUB_TOKEN: ${{ secrets.ACTIONS_GITHUB_TOKEN }}       
+
+      #- name: Step 4 - Publish Package to Maven Central
+      #- name: Step 6 - Publish Package to Maven Central
+      #  env:
+      #    MAVEN_USERNAME: ${{ secrets.MAVEN_CENTRAL_USERNAME }}
+      #    MAVEN_PASSWORD: ${{ secrets.MAVEN_CENTRAL_TOKEN }}
+      #    MAVEN_GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
+      #    GITHUB_TOKEN: ${{ secrets.ACTIONS_GITHUB_TOKEN }} 
+      #  run: mvn -B release:prepare release:perform
+        #run: mvn clean deploy -P release-2 -DskipTests --batch-mode #Setting Up Github Secrets
+#        run: mvn clean deploy -P release -DskipTests --batch-modeSetting Up Github Secrets
+
+      # Step 6: Use qcastel/github-actions-maven-release to deploy to Maven Central
+      - name: Step 6 - Deploy to Maven Central
+        uses: qcastel/github-actions-maven-release@latest
+        with:
+          maven_version: '3.x'
+          maven_goals: 'clean deploy'
+          #user_name: ${{ secrets.SONATYPE_USERNAME }}
+          user_name: ${{ secrets.MAVEN_CENTRAL_USERNAME }}
+          #user_password: ${{ secrets.SONATYPE_PASSWORD }}
+          user_password: ${{ secrets.MAVEN_CENTRAL_TOKEN }}
+          #gpg_private_key: ${{ secrets.GPG_PRIVATE_KEY }}
+          gpg_private_key: ${{ secrets.GPG_SECRET_KEY }}
+          gpg_passphrase: ${{ secrets.GPG_PASSPHRASE }}
+          #gpg_passphrase: ${{ secrets.GPG_PASSWORD }}
+          release_version: ${{ github.ref }}
+          #branch_name: 'master'
+          branch_name: 'master-tryoutworkflowseparately-v1'
+
+      # Step 7: Commit the new snapshot version back to master
+      - name: Commit new snapshot version to master
+        run: |
+          # Update the version to the next snapshot version (e.g., 1.0.1-SNAPSHOT)
+          mvn versions:set -DnewVersion=1.0.1-SNAPSHOT
+          mvn versions:commit
+          git commit -am "Upgrade to 1.0.1-SNAPSHOT"
+          #git push origin master          
+          git push origin master-tryoutworkflowseparately-v1
